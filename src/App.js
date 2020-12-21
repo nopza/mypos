@@ -101,7 +101,9 @@ export default function App() {
   );
 
   return (
-    <Router>
+    <Router
+      basename={process.env.REACT_APP_IS_PRODUCTION === "1" ? "/demo" : ""}
+    >
       <Switch>
         <ThemeProvider theme={theme}>
           <div className={classes.root}>
@@ -135,11 +137,7 @@ export default function App() {
               <SecuredRoute path="/myregister" component={MyRegisterPage} />
               <SecuredRoute path="/transaction" component={TransactionPage} />
               <SecuredRoute path="/mypage" component={MyPage} />
-              <Route
-                exact={true}
-                path="/"
-                component={() => <Redirect to="/login" />}
-              />
+              <Route path="/" component={() => <Redirect to="/login" />} />
             </Container>
           </div>
         </ThemeProvider>

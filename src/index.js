@@ -10,8 +10,14 @@ import { Provider } from "react-redux";
 import reducers from "./reducers";
 import logger from "redux-logger";
 
-var middlewares = applyMiddleware(thunk, logger);
-const store = createStore(reducers, middlewares);
+// var middlewares = applyMiddleware(thunk, logger);
+// const store = createStore(reducers, middlewares);
+
+var dev_middlewares = [];
+if (process.env.NODE_ENV === `development`) {
+  dev_middlewares.push(logger);
+}
+const store = createStore(reducers, applyMiddleware(thunk, ...dev_middlewares));
 
 ReactDOM.render(
   <React.StrictMode>
